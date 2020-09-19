@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 
 class PokemonList extends Component {
@@ -8,11 +9,16 @@ class PokemonList extends Component {
         return this.props.pokemons.map(pokemon => (
             <div>
                 <h3>
-                    {pokemon.name}
-                </h3>
+                    <Link style={linkStyle} to='/pokemon/1'>{pokemon.name}</Link>
+                </h3>                    
             </div>
         ))
     }
+}
+
+const linkStyle = {
+    color: '#333',
+    textDecoration: 'none'
 }
 
 // PropTypes

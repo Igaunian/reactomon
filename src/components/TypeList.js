@@ -19,4 +19,4 @@ TypeList.propTypes = {
     types: PropTypes.array.isRequired
 }
 
-export default TypeList
+export default TypeList;

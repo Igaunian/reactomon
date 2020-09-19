@@ -5,13 +5,15 @@ import axios from 'axios';
 import NavBar from './components/NavBar';
 import PokemonList from './components/PokemonList';
 import TypeList from './components/TypeList';
+import PokemonDetail from './components/PokemonDetail';
 
 
 class App extends Component {
 
   state = {
     pokemons: [],
-    types: []
+    types: [],
+    details: {}
   }
 
   componentDidMount() {
@@ -19,6 +21,8 @@ class App extends Component {
       .then(res => this.setState({pokemons: res.data.results}));
     axios.get('https://pokeapi.co/api/v2/type')
       .then(res => this.setState({types: res.data.results}));
+    axios.get('https://pokeapi.co/api/v2/pokemon/1')
+      .then(res => this.setState({details: res.data}));
   }
 
   render() {
@@ -38,6 +42,9 @@ class App extends Component {
             )} />
             <Route path='/types' render={props => (
               <TypeList types={this.state.types} />
+            )} />
+            <Route path='/pokemon/1' render={props => (
+              <PokemonDetail details={this.state.details} />
             )} />
           </div>
         </div>
