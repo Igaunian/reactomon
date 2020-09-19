@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import axios from 'axios';
+import NavBar from './components/NavBar';
+import PokemonList from './components/PokemonList';
+import TypeList from './components/TypeList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+
+  state = {
+    pokemons: [],
+    types: []
+  }
+
+  componentDidMount() {
+    axios.get('https://pokeapi.co/api/v2/pokemon/?limit=10')
+      .then(res => this.setState({pokemons: res.data.results}));
+    axios.get('https://pokeapi.co/api/v2/type')
+      .then(res => this.setState({types: res.data.results}));
+  }
+
+  render() {
+    console.log(this.state.pokemons);
+    return (
+      <Router>
+        <div className="App">
+          <div className="container">
+            <NavBar />
+            <Route exact path='/' render={props => (
+              <React.Fragment>
+                <p>let's see</p>
+              </React.Fragment>
+            )} />
+            <Route path='/pokemons' render={props => (
+              <PokemonList pokemons={this.state.pokemons}/>
+            )} />
+            <Route path='/types' render={props => (
+              <TypeList types={this.state.types} />
+            )} />
+          </div>
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;
