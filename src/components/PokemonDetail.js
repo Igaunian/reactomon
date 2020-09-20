@@ -5,15 +5,15 @@ import axios from 'axios';
 
 function PokemonDetail(props) {
 
+    const { id } = props.match.params;
     const [state, setState] = useState({});
     const picture = ((((state || {}).sprites || {}).other || {}).dream_world || {}).front_default;
 
     useEffect(() => {
-        const { id } = props.match.params;
         axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
             .then(res => setState(res.data));
         console.log(id)
-    }, [])
+    }, [id])
     
     return (
         <div>
