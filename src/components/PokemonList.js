@@ -6,13 +6,18 @@ import {Link} from 'react-router-dom';
 class PokemonList extends Component {
 
     render() {
-        return this.props.pokemons.map(pokemon => (
-            <div>
-                <h3>
-                    <Link style={linkStyle} to='/pokemon/1'>{pokemon.name}</Link>
-                </h3>                    
-            </div>
-        ))
+
+        return (
+
+            this.props.pokemons.map((pokemon, i) => (
+                <div>
+                    <h3 key={i} >
+                        <Link style={linkStyle} to={`/pokemon/${i + 1}`}>{pokemon.name}</Link>
+                    </h3> 
+                </div>
+            ))
+
+        )
     }
 }
 

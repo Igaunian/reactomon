@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class TypeList extends Component {
     render() {
-        return this.props.types.map(type => (
+        return this.props.types.map((type, i) => (
             <div>
                 <h3>
                     {type.name}

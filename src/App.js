@@ -12,8 +12,7 @@ class App extends Component {
 
   state = {
     pokemons: [],
-    types: [],
-    details: {}
+    types: []
   }
 
   componentDidMount() {
@@ -21,12 +20,9 @@ class App extends Component {
       .then(res => this.setState({pokemons: res.data.results}));
     axios.get('https://pokeapi.co/api/v2/type')
       .then(res => this.setState({types: res.data.results}));
-    axios.get('https://pokeapi.co/api/v2/pokemon/1')
-      .then(res => this.setState({details: res.data}));
   }
 
   render() {
-    console.log(this.state.pokemons);
     return (
       <Router>
         <div className="App">
@@ -38,14 +34,12 @@ class App extends Component {
               </React.Fragment>
             )} />
             <Route path='/pokemons' render={props => (
-              <PokemonList pokemons={this.state.pokemons}/>
+              <PokemonList pokemons={this.state.pokemons} />
             )} />
             <Route path='/types' render={props => (
               <TypeList types={this.state.types} />
             )} />
-            <Route path='/pokemon/1' render={props => (
-              <PokemonDetail details={this.state.details} />
-            )} />
+            <Route exact path='/pokemon/:id' component={PokemonDetail} />
           </div>
         </div>
       </Router>
