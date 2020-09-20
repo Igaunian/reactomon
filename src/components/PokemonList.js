@@ -25,7 +25,7 @@ function PokemonList(props) {
             <Grid container spacing={3}>
                 {props.pokemons.map((pokemon, i) => (
                     <Grid item xs>
-                        <Paper className={classes.paper}><Link style={linkStyle} to={`/pokemon/${i + 1}`}>{pokemon.name}</Link></Paper>
+                        <Link style={linkStyle} to={`/pokemon/${i + 1}`}><Paper className={classes.paper}>{pokemon.name}</Paper></Link>
                     </Grid>
                 ))}
             </Grid>
