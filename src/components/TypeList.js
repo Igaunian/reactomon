@@ -1,17 +1,35 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 
-class TypeList extends Component {
-    render() {
-        return this.props.types.map((type, i) => (
-            <div>
-                <h3>
-                    {type.name}
-                </h3>
-            </div>
-        ))
-    }
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
+
+function TypeList(props) {
+    const classes = useStyles();
+
+    return (
+        <div className={classes.root}>
+            <Grid container spacing={3}>
+                {props.types.map((type, i) => (                
+                    <Grid item xs>
+                        <Paper className={classes.paper}>{type.name}</Paper>
+                    </Grid>
+                ))}
+            </Grid>
+        </div>
+    )
 }
 
 // PropTypes

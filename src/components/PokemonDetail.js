@@ -1,40 +1,36 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
 
-class PokemonDetail extends Component {
+function PokemonDetail(props) {
 
-    state = {
-        details: {}
-    }
+    const [state, setState] = useState({});
+    const picture = ((((state || {}).sprites || {}).other || {}).dream_world || {}).front_default;
 
-    componentDidMount() {
-        const { id } = this.props.match.params;
-
+    useEffect(() => {
+        const { id } = props.match.params;
         axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
-          .then(res => this.setState({details: res.data}));
-    }
+            .then(res => setState(res.data));
+        console.log(id)
+    }, [])
+    
+    return (
+        <div>
+            <p></p>
+            <img style={{width: 250, height: 250, mode: 'fit'}} src={picture} />
+            <p>Name: {state.name}</p>
+            <p>Height: {state.height}</p>
+            <p>Weight: {state.weight}</p>
+        </div>
+    )
 
-    render() {
-        const picture = ((((this.state.details || {}).sprites || {}).other || {}).dream_world || {}).front_default;
-        console.log(picture);
-        
-        return (
-            <div>
-                <p></p>
-                <img src={picture} />
-                <p>Name: {this.state.details.name}</p>
-                <p>Height: {this.state.details.height}</p>
-                <p>Weight: {this.state.details.weight}</p>
-            </div>
-        )
-    }
 }
 
 // PropTypes
 PokemonDetail.propTypes = {
     details: PropTypes.object.isRequired
 }
+
 
 export default PokemonDetail;

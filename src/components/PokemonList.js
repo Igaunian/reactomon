@@ -1,25 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 
-class PokemonList extends Component {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
 
-    render() {
+function PokemonList(props) {
+    const classes = useStyles();
 
-        return (
-
-            this.props.pokemons.map((pokemon, i) => (
-                <div>
-                    <h3 key={i} >
-                        <Link style={linkStyle} to={`/pokemon/${i + 1}`}>{pokemon.name}</Link>
-                    </h3> 
-                </div>
-            ))
-
-        )
-    }
+    return (
+        <div className={classes.root}>
+            <Grid container spacing={3}>
+                {props.pokemons.map((pokemon, i) => (
+                    <Grid item xs>
+                        <Paper className={classes.paper}><Link style={linkStyle} to={`/pokemon/${i + 1}`}>{pokemon.name}</Link></Paper>
+                    </Grid>
+                ))}
+            </Grid>
+        </div>
+    )
 }
+
 
 const linkStyle = {
     color: '#333',
