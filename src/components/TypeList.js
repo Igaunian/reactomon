@@ -1,42 +1,48 @@
 import React, {useContext} from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import { ReactomonContext } from '../ReactomonContext';
-
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      height: 100,
+      width: 100,
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+      paddingTop: 10,
+    },
+    control: {
+      padding: theme.spacing(2),
+    },
 }));
 
 function TypeList(props) {
-    const classes = useStyles();
-    const [types, setTypes] = useContext(ReactomonContext);
+  const [spacing, setSpacing] = React.useState(2);
+  const classes = useStyles();
+  const [types, setTypes] = useContext(ReactomonContext);
 
-    return (
-        <div className={classes.root}>
-            <Grid container spacing={3}>
-                {types.map((type, i) => (                
-                    <Grid item xs>
-                        <Paper className={classes.paper}>{type.name}</Paper>
-                    </Grid>
-                ))}
+  const handleChange = (event) => {
+    setSpacing(Number(event.target.value));
+  };
+
+  return (
+    <Grid container className={classes.root} spacing={2}>
+      <Grid item xs={12}>
+        <Grid container justify="center" spacing={spacing}>
+          {types.map((type, i) => (
+            <Grid key={i} item>
+              <Paper className={classes.paper}>{type.name}</Paper>
             </Grid>
-        </div>
-    )
+          ))}
+        </Grid>
+      </Grid>      
+    </Grid>
+  );
 }
 
-// PropTypes
-TypeList.propTypes = {
-    types: PropTypes.array.isRequired
-}
 
 export default TypeList;
