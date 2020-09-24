@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { PokemonProvider, ReactomonContext } from '../ReactomonContext';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,11 +20,12 @@ const useStyles = makeStyles((theme) => ({
 
 function PokemonList(props) {
     const classes = useStyles();
-
+    const [pokemons, setPokemons] = useContext(ReactomonContext);
+    
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
-                {props.pokemons.map((pokemon, i) => (
+                {pokemons.map((pokemon, i) => (
                     <Grid item xs>
                         <Link style={linkStyle} to={`/pokemon/${i + 1}`}><Paper className={classes.paper}>{pokemon.name}</Paper></Link>
                     </Grid>

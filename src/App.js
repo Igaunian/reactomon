@@ -6,21 +6,24 @@ import NavBar from './components/NavBar';
 import PokemonList from './components/PokemonList';
 import TypeList from './components/TypeList';
 import PokemonDetail from './components/PokemonDetail';
+import { PokemonListProvider } from './ReactomonContext';
 
 
 function App() {
-  const [pokemons, setPokemons] = useState([]);
+  
+  // const [pokemons, setPokemons] = useState([]);
   const [types, setType] = useState([]);
 
   useEffect(() => {
-    axios.get('https://pokeapi.co/api/v2/pokemon/?limit=50')
-      .then(res => setPokemons(res.data.results));
+    // axios.get('https://pokeapi.co/api/v2/pokemon/?limit=50')
+    //   .then(res => setPokemons(res.data.results));
     axios.get('https://pokeapi.co/api/v2/type')
       .then(res => setType(res.data.results));
   }, [])
 
   return (
     <Router>
+      <PokemonListProvider>
       <div className="App">
         <div className="container">
           <NavBar />
@@ -30,7 +33,8 @@ function App() {
             </React.Fragment>
           )} />
           <Route path='/pokemons' render={props => (
-            <PokemonList pokemons={pokemons} />
+            // <PokemonList pokemons={pokemons} />
+            <PokemonList />
           )} />
           <Route path='/types' render={props => (
             <TypeList types={types} />
@@ -38,6 +42,7 @@ function App() {
           <Route exact path='/pokemon/:id' component={PokemonDetail} />
         </div>
       </div>
+      </PokemonListProvider>
     </Router>
   );
 
