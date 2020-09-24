@@ -26,7 +26,7 @@ const linkStyle = {
 }
 
 function PokemonList(props) {
-    const [spacing, setSpacing] = React.useState(1);
+    const [spacing, setSpacing] = React.useState(2);
     const classes = useStyles();
     const [pokemons, setPokemons] = useContext(ReactomonContext);
 
@@ -35,15 +35,20 @@ function PokemonList(props) {
     };
 
     return (
-        <div className={classes.root}>
-            <Grid container justify="center" spacing={spacing}>
-                {pokemons.map((pokemon, i) => (
-                    <Grid item xs>
-                        <Link style={linkStyle} to={`/pokemon/${i + 1}`}><Paper className={classes.paper}>{pokemon.name}</Paper></Link>
+        <>
+            <p></p>
+            <Grid container className={classes.root} spacing={2}>
+                <Grid item xs={12}>
+                    <Grid container justify="center" spacing={spacing}>
+                        {pokemons.map((pokemon, i) => (
+                            <Grid item>
+                                <Link style={linkStyle} to={`/pokemon/${i + 1}`}><Paper className={classes.paper}>{pokemon.name}</Paper></Link>
+                            </Grid>
+                        ))}
                     </Grid>
-                ))}
+                </Grid>
             </Grid>
-        </div>
+        </>
     )
 }
 
