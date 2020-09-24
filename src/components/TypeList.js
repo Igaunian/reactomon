@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { ReactomonContext } from '../ReactomonContext';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,11 +19,12 @@ const useStyles = makeStyles((theme) => ({
 
 function TypeList(props) {
     const classes = useStyles();
+    const [types, setTypes] = useContext(ReactomonContext);
 
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
-                {props.types.map((type, i) => (                
+                {types.map((type, i) => (                
                     <Grid item xs>
                         <Paper className={classes.paper}>{type.name}</Paper>
                     </Grid>
