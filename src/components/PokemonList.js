@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Pagination from '@material-ui/lab/Pagination';
 import { ReactomonContext } from '../ReactomonContext';
 
 
@@ -22,6 +23,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const useStylesPagination = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        marginTop: theme.spacing(2),
+      },
+    },
+  }));
+
 const linkStyle = {
     textDecoration: 'none'
 }
@@ -29,13 +38,19 @@ const linkStyle = {
 function PokemonList(props) {
     const [spacing, setSpacing] = React.useState(2);
     const classes = useStyles();
+    const classesPagination = useStylesPagination();
     const [pokemons, setPokemons, sprites, setSprites] = useContext(ReactomonContext);
     
     return (
         <>
             <p></p>
-            <Grid container className={classes.root} spacing={2}>
-                <Grid item xs={12}>
+            <Grid container justify="center" className={classes.root} spacing={2}>
+                <div className={classesPagination.root}>
+                    <Pagination count={10} />
+                    {/* <Pagination count={10} disabled /> */}
+                </div>
+                <p></p>
+                <Grid item xs={10}>
                     <Grid container justify="center" spacing={spacing}>
                         {pokemons.map((pokemon, i) => (
                             <Grid key={i} item>
@@ -49,6 +64,11 @@ function PokemonList(props) {
                         ))}
                     </Grid>
                 </Grid>
+                <p></p>
+                <div className={classesPagination.root}>
+                    <Pagination count={10} />
+                    {/* <Pagination count={10} disabled /> */}
+                </div>
             </Grid>
         </>
     )
