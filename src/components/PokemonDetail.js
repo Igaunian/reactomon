@@ -20,9 +20,9 @@ function PokemonDetail(props) {
         <div>
             <p></p>
             <div>
-                <span><Link style={linkStyle} to={`/pokemon/${i - 1}`}>Previous</Link></span>
+                <span><Link style={linkStyle} to={giveMePreviousPokemon(i)}>Previous</Link></span>
                 <span><img style={{width: 250, height: 250, mode: 'fit'}} src={picture} /></span>
-                <span><Link style={linkStyle} to={`/pokemon/${i + 1}`}>Next</Link></span>
+                <span><Link style={linkStyle} to={giveMeNextPokemon(i)}>Next</Link></span>
             </div>
             <p>Name: {details.name}</p>
             <p>Height: {details.height}</p>
@@ -30,6 +30,23 @@ function PokemonDetail(props) {
         </div>
     )
 
+}
+
+const giveMeNextPokemon = (id) => {
+    if (id + 1 > 300) {
+        return 300;
+    } else {
+        return `/pokemon/` + (id + 1);
+    }    
+}
+
+const giveMePreviousPokemon = (id) => {
+    if (id <= 1) {
+        return 1;
+    } else {
+        return `/pokemon/` + (id - 1);
+    }
+    
 }
 
 const linkStyle = {
