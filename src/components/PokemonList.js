@@ -47,8 +47,6 @@ function PokemonList(props) {
     }, [offset])
 
     const handleChange = (event, value) => {
-        console.log('value: ' + value);
-        console.log((value * 50) - 50);
         setOffset((value * 50) - 50);
     };
 
@@ -63,21 +61,21 @@ function PokemonList(props) {
                 <p></p>
                 <Grid item xs={10}>
                     <Grid container justify="center" spacing={spacing}>
-                        {pokemons.map((pokemon, i) => (
-                            <Grid key={i} item>
-                                <Link style={linkStyle} to={`/pokemon/${i + 1}`}>
+                        {pokemons.map(function(pokemon, i) {
+                            return <Grid key={i + offset} item>
+                                <Link style={linkStyle} to={`/pokemon/${(i + offset) + 1}`}>
                                     <Paper key={i} className={classes.paper}>
                                         {pokemon.name}
-                                        <img style={{width: 80, height: 80, mode: 'fit'}} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`}/>
+                                        <img style={{width: 80, height: 80, mode: 'fit'}} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${(i + offset) + 1}.png`}/>
                                     </Paper>
                                 </Link>
                             </Grid>
-                        ))}
+                        })}
                     </Grid>
                 </Grid>
                 <p></p>
                 <div className={classesPagination.root}>
-                    <Pagination count={6} />
+                    <Pagination count={6} onChange={handleChange} />
                 </div>
             </Grid>
         </>
