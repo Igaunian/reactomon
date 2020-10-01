@@ -1,10 +1,9 @@
-import React, {useContext} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useState, useEffect, createContext } from 'react';
+import axios from 'axios';import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Pagination from '@material-ui/lab/Pagination';
-import { ReactomonContext } from '../ReactomonContext';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,18 +35,30 @@ const linkStyle = {
 }
 
 function PokemonList(props) {
-    const [spacing, setSpacing] = React.useState(2);
+    const [spacing, setSpacing] = useState(2);
     const classes = useStyles();
     const classesPagination = useStylesPagination();
-    const [pokemons, setPokemons, sprites, setSprites] = useContext(ReactomonContext);
-    
+    const [pokemons, setPokemons] = useState([]);
+    const [offset, setOffset] = useState(0);
+
+    useEffect(() => {
+        axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=50&offset=${offset}`)
+          .then(res => setPokemons(res.data.results));
+    }, [offset])
+
+    const handleChange = (event, value) => {
+        console.log('value: ' + value);
+        console.log((value * 50) - 50);
+        setOffset((value * 50) - 50);
+    };
+
+ 
     return (
         <>
             <p></p>
             <Grid container justify="center" className={classes.root} spacing={2}>
                 <div className={classesPagination.root}>
-                    <Pagination count={10} />
-                    {/* <Pagination count={10} disabled /> */}
+                    <Pagination count={6} onChange={handleChange} />
                 </div>
                 <p></p>
                 <Grid item xs={10}>
@@ -66,8 +77,7 @@ function PokemonList(props) {
                 </Grid>
                 <p></p>
                 <div className={classesPagination.root}>
-                    <Pagination count={10} />
-                    {/* <Pagination count={10} disabled /> */}
+                    <Pagination count={6} />
                 </div>
             </Grid>
         </>

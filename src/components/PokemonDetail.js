@@ -37,7 +37,7 @@ const giveMeNextPokemon = (id) => {
         return 300;
     } else {
         return `/pokemon/` + (id + 1);
-    }    
+    }
 }
 
 const giveMePreviousPokemon = (id) => {
@@ -46,7 +46,6 @@ const giveMePreviousPokemon = (id) => {
     } else {
         return `/pokemon/` + (id - 1);
     }
-    
 }
 
 const linkStyle = {

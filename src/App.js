@@ -5,7 +5,7 @@ import NavBar from './components/NavBar';
 import PokemonList from './components/PokemonList';
 import TypeList from './components/TypeList';
 import PokemonDetail from './components/PokemonDetail';
-import { PokemonListProvider, TypeListProvider } from './ReactomonContext';
+import { TypeListProvider } from './ReactomonContext';
 
 
 function App() {
@@ -22,9 +22,7 @@ function App() {
             </>
           )} />
 
-          <PokemonListProvider>
-            <Route path='/pokemons' component={PokemonList} />
-          </PokemonListProvider>
+          <Route path='/pokemons' component={PokemonList} />
 
           <TypeListProvider>
             <Route path='/types' component={TypeList} />
